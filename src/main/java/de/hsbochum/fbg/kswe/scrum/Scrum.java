@@ -31,17 +31,21 @@ public class Scrum {
 
     private void moveToNextEvent(Event event) throws UnexpectedNextEventException, InitializationException {
         LOG.info("Moving to next event...");
-        Event previousEvent = null;
+        Event previousEvent = this.currentEvent;
         
         if (this.currentEvent == null) {
             this.currentEvent = event;
         }
         else {
-            /*
-             * TODO implement the assertion of the logical order. Throw an
-             * UnexpectedNextEventException if the order is not correct.
-             * Hint: the method Class#isAssignableFrom() might be helpful
-             */
+            Class nextEventClass = event.getClass();
+            Class currentEventClass = this.currentEvent.getClass();
+            
+            if(this.currentEvent.followingEventType().equals(nextEventClass)){
+                this.currentEvent = event;
+            }
+            else{
+                throw new UnexpectedNextEventException("Moving from Event "+ currentEventClass.getSimpleName() + " to Event " + event.getClass().getSimpleName()+ " is not allowed");
+            }
         }
         
         event.init(previousEvent, productBacklog);

@@ -11,7 +11,7 @@ public class SprintReview implements Event {
 
     @Override
     public Class<? extends Event> followingEventType() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return SprintRetrospective.class;
     }
 
     @Override

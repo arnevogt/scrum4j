@@ -20,7 +20,12 @@ public class Sprint implements Event {
 
     @Override
     public void init(Event previous, ProductBacklog productBacklog) throws InitializationException {
-        ((SprintPlanning) previous).getItems().stream().forEach(i -> this.backlog.addItem(i));
+        if(previous != null){
+            ((SprintPlanning) previous).getItems().stream().forEach(i -> this.backlog.addItem(i));
+        }
+        else{
+            throw new InitializationException("previous event is null");
+        }
     }
 
     public int getNumberOfDays() {
@@ -29,7 +34,7 @@ public class Sprint implements Event {
 
     @Override
     public Class<? extends Event> followingEventType() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return SprintReview.class;
     }
 
 }
