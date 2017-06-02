@@ -40,7 +40,7 @@ public class Scrum {
             Class nextEventClass = event.getClass();
             Class currentEventClass = this.currentEvent.getClass();
             
-            if(this.currentEvent.followingEventType().equals(nextEventClass)){
+            if(nextEventClass.isAssignableFrom(this.currentEvent.followingEventType())){
                 this.currentEvent = event;
             }
             else{
