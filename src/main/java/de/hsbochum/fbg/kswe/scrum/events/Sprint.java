@@ -20,6 +20,10 @@ public class Sprint
 	@Override
 	public void init(Event previous, ProductBacklog productBacklog)
 	throws InitializationException {
+		if (previous == null) {
+			throw new InitializationException("The sprint is not successfully initialized!");
+		}
+		
 		((SprintPlanning) previous).getItems().stream().forEach(i -> this.backlog.addItem(i));
 	}
 	
